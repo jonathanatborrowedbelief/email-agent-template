@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "../../../../lib/supabase";
+import { getSupabase } from "../../../../lib/supabase";
 import { sendEmail } from "../../../../lib/resend";
 import { generateNewsletter } from "../../../../lib/gemini";
 import { config } from "../../../../lib/config";
@@ -18,6 +18,7 @@ import { config } from "../../../../lib/config";
 
 export async function POST(req: Request) {
   try {
+    const supabase = getSupabase();
     const body = await req.json();
 
     // ── Mode 1: Generate a new newsletter ──────────────────

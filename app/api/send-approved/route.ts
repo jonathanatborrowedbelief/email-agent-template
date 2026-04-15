@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "../../../lib/supabase";
+import { getSupabase } from "../../../lib/supabase";
 import { sendEmail } from "../../../lib/resend";
 
 // ============================================================
@@ -15,6 +15,7 @@ import { sendEmail } from "../../../lib/resend";
 
 export async function POST() {
   try {
+    const supabase = getSupabase();
     const { data: approved, error } = await supabase
       .from("leads")
       .select("*")

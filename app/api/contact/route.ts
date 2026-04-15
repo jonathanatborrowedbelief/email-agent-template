@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "../../../lib/supabase";
+import { getSupabase } from "../../../lib/supabase";
 import { sendEmail } from "../../../lib/resend";
 import { extractLeadInfo } from "../../../lib/gemini";
 import { config } from "../../../lib/config";
@@ -19,6 +19,7 @@ export async function POST(req: Request) {
     }
 
     // ── 2. Save to Supabase (your CRM) ───────────────────────
+    const supabase = getSupabase();
     const { error: dbError } = await supabase.from("leads").insert({
       name,
       email,

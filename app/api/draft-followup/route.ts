@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "../../../lib/supabase";
+import { getSupabase } from "../../../lib/supabase";
 import { draftFollowUp } from "../../../lib/gemini";
 import { config } from "../../../lib/config";
 
@@ -20,6 +20,8 @@ import { config } from "../../../lib/config";
 
 export async function POST() {
   try {
+    const supabase = getSupabase();
+
     // Find leads that don't have a draft yet
     const { data: leads, error } = await supabase
       .from("leads")

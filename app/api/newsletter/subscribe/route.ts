@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
-import { supabase } from "../../../../lib/supabase";
+import { getSupabase } from "../../../../lib/supabase";
 import { sendEmail } from "../../../../lib/resend";
 import { config } from "../../../../lib/config";
 
 export async function POST(req: Request) {
   try {
     const { email, name } = await req.json();
+
+    const supabase = getSupabase();
 
     if (!email) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
